@@ -638,6 +638,38 @@ export class DiagramConfig {
 	}
 
 	// #endregion
+	// #region Direct Save
+
+	private readonly _directSave = new VsCodeSetting<boolean>(
+		`${extensionId}.directSave`,
+		{
+			scope: this.uri,
+			serializer: serializerWithDefault<boolean>(false),
+		}
+	);
+
+	@computed
+	public get directSave(): boolean {
+		return this._directSave.get();
+	}
+
+	// #endregion
+	// #region Direct Save Extension
+
+	private readonly _directSaveExtension = new VsCodeSetting<string>(
+		`${extensionId}.directSaveExtension`,
+		{
+			scope: this.uri,
+			serializer: serializerWithDefault<string>(""),
+		}
+	);
+
+	@computed
+	public get directSaveExtension(): string {
+		return this._directSaveExtension.get();
+	}
+
+	// #endregion
 
 	// #region Global Variables
 
@@ -678,15 +710,15 @@ export class DiagramConfig {
 
 type DrawioCustomLibrary = (
 	| {
-			xml: string;
-	  }
+		xml: string;
+	}
 	| {
-			url: string;
-	  }
+		url: string;
+	}
 	| {
-			json: string;
-	  }
+		json: string;
+	}
 	| {
-			file: string;
-	  }
+		file: string;
+	}
 ) & { libName: string; entryId: string };

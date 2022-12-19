@@ -276,12 +276,17 @@ export class DrawioEditor {
 
 	public async exportTo(targetExtension: string): Promise<void> {
 		const buffer = await this.drawioClient.export(targetExtension);
-		const targetUri = await window.showSaveDialog({
-			defaultUri: this.getUriWithExtension(targetExtension),
-		});
+		let targetUri: Uri | undefined = this.getUriWithExtension(targetExtension);
+		if (!this.config.directSave) {
+			targetUri = await window.showSaveDialog({
+				defaultUri: this.getUriWithExtension(targetExtension),
+			});
 
-		if (!targetUri) {
-			return;
+			if (!targetUri) {
+				return;
+			}
+		} else {
+			targetExtension = this.config.directSaveExtension
 		}
 		await workspace.fs.writeFile(targetUri, buffer);
 	}
@@ -312,25 +317,29 @@ export class DrawioEditor {
 	}
 
 	public async handleExportCommand(): Promise<void> {
-		const result = await window.showQuickPick([
-			{
-				label: ".svg",
-				description: "Exports the diagram to a SVG file",
-			},
-			{
-				label: ".png",
-				description: "Exports the diagram to a png file",
-			},
-			{
-				label: ".drawio",
-				description: "Exports the diagram to a drawio file",
-			},
-		]);
+		if (this.config.directSave) {
+			await this.exportTo(this.config.directSaveExtension);
+		} else {
+			const result = await window.showQuickPick([
+				{
+					label: ".svg",
+					description: "Exports the diagram to a SVG file",
+				},
+				{
+					label: ".png",
+					description: "Exports the diagram to a png file",
+				},
+				{
+					label: ".drawio",
+					description: "Exports the diagram to a drawio file",
+				},
+			]);
 
-		if (!result) {
-			return;
+			if (!result) {
+				return;
+			}
+			await this.exportTo(result.label);
 		}
-		await this.exportTo(result.label);
 	}
 
 	public async handleChangeThemeCommand(): Promise<void> {
