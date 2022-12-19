@@ -1,25 +1,16 @@
 {
-	"name": "vscode-drawio",
-	"private": true,
-	"displayName": "Draw.io Integration",
+	"name": "vscode-drawio-ichir0roie",
+	"displayName": "Draw.io Integration for mine",
 	"description": "This unofficial extension integrates Draw.io into VS Code.",
-	"version": "999.0.0-alpha",
+	"version": "1.6.4",
 	"license": "GPL-3.0",
-	"publisher": "hediet",
-	"keywords": [
-		"drawio",
-		"diagram",
-		"diagrams.net",
-		"visio",
-		"architecture",
-		"uml",
-		"code link"
-	],
+	"publisher": "ichir0roie",
+	"keywords": [],
 	"author": {
-		"email": "henning.dieterichs@live.de",
-		"name": "Henning Dieterichs"
+		"email": "ichir0roie@gmail.com",
+		"name": "ichir0roie"
 	},
-	"readme": "./README.md",
+	"readme": "README.md",
 	"icon": "docs/logo.drawio.png",
 	"extensionKind": [
 		"ui",
@@ -28,16 +19,13 @@
 	"engines": {
 		"vscode": "^1.46.0"
 	},
-	"categories": [
-		"Visualization"
-	],
 	"activationEvents": [
 		"onCustomEditor:hediet.vscode-drawio",
 		"onCustomEditor:hediet.vscode-drawio-text",
 		"onCommand:hediet.vscode-drawio.newDiagram"
 	],
 	"repository": {
-		"url": "https://github.com/hediet/vscode-drawio.git"
+		"url": "https://github.com/ichir0roie/vscode-drawio"
 	},
 	"browser": "./dist/extension/index",
 	"main": "./dist/extension/index",
